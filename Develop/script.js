@@ -17,6 +17,7 @@ generateBtn.addEventListener("click", writePassword);
 
 //Determine variables into strings
 var alphabet = ['abcdefghijklmnopqrstuvwxyz'];
+var uppercase = ['ABCDEFGHIJKLMNOPQRSTUVYXYZ']
 var number = ['1234567890'];
 var other = ['!@#$%^&*'];
 
@@ -26,21 +27,20 @@ var yourString = [''];
 //---
 
 //Generate password function
-function generatePassword() {
+function generatePassword(randomString, keyLength) {
 
   //determine length
   var keyLength = prompt("How long should the password be? (MAX 50)");
+  console.log(keyLength);
 
   if (keyLength <= 50) {
+
     //determine characters to use
-    var isAlphabet = confirm("Use lowercase letters?");
-    var isUppercase = confirm("Use uppercase letters?");
-    var isNumber = confirm("Use numbers?");
-    var isOther = confirm("Use special characters?");
-  
-    //call to create the string and return the value
-    createString();
-    randomizeString();
+    createString(randomString, keyLength);
+
+    //randomize the string
+    randomizeString(randomString, keyLength);
+
     return yourString;
   }
   else {
@@ -52,47 +52,55 @@ function generatePassword() {
 }
 
   //function to create the desired strings values
-  function createString (keyLength, isAlphabet, isUppercase, isNumber, isOther){
+  function createString (keyLength, randomString){
 
+    var randomString = [''];
 
-    if (isAlphabet === true) {
-      randomString = randomString + alphabet;
+    if (confirm("Use lowercase letters?") == true) {
+      randomString = randomString.concat(alphabet);
     } 
-else {}
 
-    if (isUppercase === true) {
-      randomString += alphabet.toUppercase();
+    if (confirm("Use uppercase letters?") == true) {
+      randomString = randomString.concat(uppercase);
     }
-else{}
 
-    if (isNumbers === true){
-      randomString += number;
+    if (confirm("Use numbers?") == true){
+      randomString = randomString.concat(number);
     }
-else{}
 
-    if (isOther === true){
-      randomString += other;
+    if (confirm("Use special characters?") == true){
+      randomString = randomString.concat(other);
     }
-else{}
 
-    if (isAphabet === false && isUppercase === false && isNumbers === false && isOther === false){
-      return null;
+    if (randomString === " ") {
+      alert("String empty");
     }
-else{}
 
-return;
+    console.log(randomString);
+
+    randomString = randomString.join('');
+    console.log(randomString);
+
+    console.log(keyLength);
+
+    randomizeString(randomString, keyLength);
+
+  return;
 
   }
 
   //iterate a new string of the desired values to the desired length
-  function randomizeString(randomString){
+  function randomizeString(randomString, keyLength){
 
     var maxLength = randomString.length;
+    console.log(maxLength);
+    console.log(keyLength);
 
     for (var i = 0; i < keyLength; i++) {
       yourString += randomString.charAt(Math.floor(Math.random() * maxLength));
     }
 
+    console.log(yourString);
     return;
 
 }
