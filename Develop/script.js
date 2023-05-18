@@ -1,10 +1,22 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
+//---
+
+//Determine variables into strings
+var alphabet = ['abcdefghijklmnopqrstuvwxyz'];
+var uppercase = ['ABCDEFGHIJKLMNOPQRSTUVYXYZ']
+var number = ['1234567890'];
+var other = ['!@#$%^&*'];
+
+//---
+
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
+
+  console.log(password);
 
   passwordText.value = password;
 
@@ -15,19 +27,8 @@ generateBtn.addEventListener("click", writePassword);
 
 //-------------------------------------
 
-//Determine variables into strings
-var alphabet = ['abcdefghijklmnopqrstuvwxyz'];
-var uppercase = ['ABCDEFGHIJKLMNOPQRSTUVYXYZ']
-var number = ['1234567890'];
-var other = ['!@#$%^&*'];
-
-var randomString = [''];
-var yourString = [''];
-
-//---
-
 //Generate password function
-function generatePassword(randomString, keyLength) {
+function generatePassword() {
 
   //determine length
   var keyLength = prompt("How long should the password be? (MAX 50)");
@@ -36,12 +37,10 @@ function generatePassword(randomString, keyLength) {
   if (keyLength <= 50) {
 
     //determine characters to use
-    createString(randomString, keyLength);
+    createString(keyLength);
 
-    //randomize the string
-    randomizeString(randomString, keyLength);
+    return; 
 
-    return yourString;
   }
   else {
   //
@@ -49,10 +48,11 @@ function generatePassword(randomString, keyLength) {
   return;
   }
 
+
 }
 
   //function to create the desired strings values
-  function createString (keyLength, randomString){
+  function createString (keyLength){
 
     var randomString = [''];
 
@@ -81,27 +81,30 @@ function generatePassword(randomString, keyLength) {
     randomString = randomString.join('');
     console.log(randomString);
 
-    console.log(keyLength);
+        //randomize the string
+        var yourString = randomizeString(randomString, keyLength);
 
-    randomizeString(randomString, keyLength);
-
-  return;
+  return yourString;
 
   }
 
   //iterate a new string of the desired values to the desired length
   function randomizeString(randomString, keyLength){
 
+    var yourString = [''];
+
     var maxLength = randomString.length;
     console.log(maxLength);
-    console.log(keyLength);
 
     for (var i = 0; i < keyLength; i++) {
       yourString += randomString.charAt(Math.floor(Math.random() * maxLength));
     }
 
     console.log(yourString);
-    return;
+
+    password = yourString;
+
+    return yourString;
 
 }
 
