@@ -14,7 +14,7 @@ A simple application to generate keys or passwords. It prompts the user for seve
 
 ## Mockup
 
-----
+<img src="screenshot.png">
 
 ## Deployed Website
 
