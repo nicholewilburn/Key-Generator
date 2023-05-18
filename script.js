@@ -5,20 +5,18 @@ var generateBtn = document.querySelector("#generate");
 
 //Determine variables into strings
 var alphabet = ['abcdefghijklmnopqrstuvwxyz'];
-var uppercase = ['ABCDEFGHIJKLMNOPQRSTUVYXYZ']
+var uppercase = ['ABCDEFGHIJKLMNOPQRSTUVYXYZ'];
 var number = ['1234567890'];
 var other = ['!@#$%^&*'];
 
 //---
 
 // Write password to the #password input
+//writePassword's only function now is to attach to the button to invoke generatePassword
+//it was overwriting the string from line 101 as undefined for some reason
 function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
 
-  console.log(password);
-
-  passwordText.value = password;
+  generatePassword();
 
 }
 
@@ -31,20 +29,18 @@ generateBtn.addEventListener("click", writePassword);
 function generatePassword() {
 
   //determine length
-  var keyLength = prompt("How long should the password be? (MAX 50)");
+  var keyLength = prompt("How long should the password be? (8-128 characters)");
   console.log(keyLength);
 
-  if (keyLength <= 50) {
+  if (keyLength >= 8 && keyLength <= 128) {
 
     //determine characters to use
     createString(keyLength);
 
-    return; 
-
   }
   else {
   //
-  alert("That is not a valid input.");
+  alert("That is not a valid number.");
   return;
   }
 
@@ -72,8 +68,10 @@ function generatePassword() {
       randomString = randomString.concat(other);
     }
 
-    if (randomString === " ") {
-      alert("String empty");
+    if (randomString == '') {
+      console.log(randomString);
+      alert("You did not select any characters.");
+      return;
     }
 
     console.log(randomString);
@@ -83,8 +81,6 @@ function generatePassword() {
 
         //randomize the string
         var yourString = randomizeString(randomString, keyLength);
-
-  return yourString;
 
   }
 
@@ -102,9 +98,9 @@ function generatePassword() {
 
     console.log(yourString);
 
-    password = yourString;
+    password.textContent = yourString;
 
-    return yourString;
+    console.log(password);
 
 }
 
